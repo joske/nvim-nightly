@@ -102,6 +102,17 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
+local function lsp_clients()
+	local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
+	if next(buf_clients) == nil then
+		return ""
+	end
+	local names = {}
+	for _, client in pairs(buf_clients) do
+		table.insert(names, client.name)
+	end
+	return " " .. table.concat(names, ", ")
+end
 -- one statusline across the whole UI
 vim.opt.laststatus = 3
 
@@ -111,6 +122,14 @@ require("lualine").setup({
 		theme = "auto",
 		-- make sure neo-tree isn't disabled here:
 		disabled_filetypes = { statusline = {}, winbar = {} },
+	},
+	sections = {
+		lualine_a = { "mode" },
+		lualine_b = { "branch" },
+		lualine_c = { "filename" },
+		lualine_x = { lsp_clients, "encoding", "fileformat", "filetype" },
+		lualine_y = { "progress" },
+		lualine_z = { "location" },
 	},
 	-- optional: lualine knows how to play nice with neo-tree
 	extensions = { "neo-tree" },
