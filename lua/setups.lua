@@ -94,6 +94,7 @@ require("neo-tree").setup({
 	},
 })
 
+---@diagnostic disable-next-line: missing-fields
 require("nvim-treesitter.configs").setup({
 	ensure_installed = { "lua", "rust", "bash", "toml", "json", "yaml", "markdown" },
 	highlight = {
