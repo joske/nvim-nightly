@@ -13,6 +13,8 @@ require("mason-lspconfig").setup({
 	ensure_installed = {
 		"lua_ls",
 		"bashls",
+		"tombi",
+		"yamlls",
 	},
 	automatic_installation = true,
 })
