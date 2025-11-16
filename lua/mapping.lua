@@ -24,6 +24,7 @@ map("n", "<C-j>", "<C-w>j", { desc = "Move to upper window" })
 map("n", "<C-k>", "<C-w>k", { desc = "Move to lower window" })
 map("n", "<C-Left>", ":vertical resize -2<CR>", { desc = "Resize split left" })
 map("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Resize split right" })
+map("n", "<leader>c", "<cmd>bp | sp | bn | bd<CR>", { desc = "Close current buffer" })
 
 -- telescope
 map({ "n" }, "<leader>f", "", { desc = "Find" })
