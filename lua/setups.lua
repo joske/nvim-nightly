@@ -41,6 +41,16 @@ telescope.setup({
 			prompt_position = "top",
 			preview_cutoff = 40,
 		},
+		mappings = {
+			i = {
+				["<C-j>"] = "move_selection_next",
+				["<C-k>"] = "move_selection_previous",
+			},
+			n = {
+				["<C-j>"] = "move_selection_next",
+				["<C-k>"] = "move_selection_previous",
+			},
+		},
 	},
 })
 telescope.load_extension("ui-select")
@@ -71,7 +81,6 @@ vim.g.rustaceanvim = {
 }
 
 local events = require("neo-tree.events")
-
 require("neo-tree").setup({
 	event_handlers = {
 		{
@@ -85,4 +94,27 @@ require("neo-tree").setup({
 	},
 })
 
-require("lualine").setup()
+require("nvim-treesitter.configs").setup({
+	ensure_installed = { "lua", "rust", "bash", "toml", "json", "yaml", "markdown" },
+	highlight = {
+		enable = true,
+	},
+})
+
+-- one statusline across the whole UI
+vim.opt.laststatus = 3
+
+require("lualine").setup({
+	options = {
+		globalstatus = true, -- lualine mirrors laststatus=3
+		theme = "auto",
+		-- make sure neo-tree isn't disabled here:
+		disabled_filetypes = { statusline = {}, winbar = {} },
+	},
+	-- optional: lualine knows how to play nice with neo-tree
+	extensions = { "neo-tree" },
+})
+
+require("fidget").setup()
+require("toggleterm").setup()
+require("trouble").setup()

@@ -20,4 +20,5 @@ return {
 	{ "tpope/vim-fugitive" },
 	{ "nvim-lualine/lualine.nvim" },
 	{ "j-hui/fidget.nvim" },
+	{ "nvim-mini/mini.nvim", version = "*" },
 }
