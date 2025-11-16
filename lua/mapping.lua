@@ -70,6 +70,11 @@ map({ "n" }, "<Leader>ra", "<cmd>RustLsp codeAction<CR>", { desc = "Code Action"
 map({ "n" }, "<Leader>rC", "<cmd>RustLsp openCargo<CR>", { desc = "Open Cargo.toml" })
 map({ "n" }, "<Leader>rm", "<cmd>RustLsp expandMacro<CR>", { desc = "Expand Macro" })
 
+-- packages
+map({ "n" }, "<leader>p", "", { desc = "Packages" })
+map({ "n" }, "<leader>pa", "<cmd>Lazy update<CR>", { desc = "Update" })
+map({ "n" }, "<leader>pm", "<cmd>Mason<CR>", { desc = "Mason" })
+
 -- git
 map("n", "<leader>g", "", { desc = "Git" })
 map("n", "<leader>gg", function()
