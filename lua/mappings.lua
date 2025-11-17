@@ -15,6 +15,34 @@ local function git_files()
 	builtin.find_files({ no_ignore = true })
 end
 
+local function toggle_inlay_hints()
+	if not vim.lsp.inlay_hint then
+		vim.notify("Inlay hints not supported", vim.log.levels.WARN)
+		return
+	end
+
+	local bufnr = vim.api.nvim_get_current_buf()
+	if type(vim.lsp.inlay_hint) == "table" and vim.lsp.inlay_hint.enable then
+		local enabled = true
+		if vim.lsp.inlay_hint.is_enabled then
+			enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+		end
+		vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
+		pcall(vim.api.nvim_buf_set_var, bufnr, "inlay_hints_enabled", not enabled)
+	else
+		local ok, value = pcall(vim.api.nvim_buf_get_var, bufnr, "inlay_hints_enabled")
+		local enabled
+		if ok then
+			enabled = value == nil and true or value
+		else
+			enabled = true
+		end
+		local next_state = not enabled
+		vim.lsp.inlay_hint(bufnr, next_state)
+		vim.b.inlay_hints_enabled = next_state
+	end
+end
+
 -- navigation
 map({ "n" }, "L", "<cmd>bn<cr>", { desc = "Next Buffer" })
 map({ "n" }, "H", "<cmd>bp<cr>", { desc = "Previous Buffer" })
@@ -25,6 +53,10 @@ map("n", "<C-k>", "<C-w>k", { desc = "Move to lower window" })
 map("n", "<C-Left>", ":vertical resize -2<CR>", { desc = "Resize split left" })
 map("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Resize split right" })
 map("n", "<leader>c", "<cmd>bp | sp | bn | bd<CR>", { desc = "Close current buffer" })
+
+-- ui
+map("n", "<leader>u", "", { desc = "UI" })
+map("n", "<leader>uh", toggle_inlay_hints, { desc = "Toggle Inlay Hints" })
 
 -- telescope
 map({ "n" }, "<leader>f", "", { desc = "Find" })
