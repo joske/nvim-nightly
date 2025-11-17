@@ -11,6 +11,10 @@ vim.opt.smartindent = true
 vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.number = true
+vim.opt.cursorline = true
+vim.opt.scrolloff = 10
+vim.opt.sidescrolloff = 8
+vim.opt.mouse = "a"
 vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 -- Remap 0 to go to first non-blank character
 vim.cmd([[nnoremap <expr> <silent> 0 col('.') == match(getline('.'),'\\S')+1 ? '0' : '^']])
