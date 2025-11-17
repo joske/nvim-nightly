@@ -12,20 +12,31 @@ return {
   },
   lazy = false,
   config = function()
-    local events = require("neo-tree.events")
-    require("neo-tree").setup({
-      event_handlers = {
-        {
-          event = events.NEO_TREE_BUFFER_ENTER,
-          handler = function()
-            -- quit only if Neo-tree is the only window AND no listed buffers remain
-            if #vim.api.nvim_list_wins() == 1 and #vim.fn.getbufinfo({ buflisted = 1 }) == 0 then
-              vim.cmd("quit")
-            end
-          end,
-        },
-      },
+    require("neo-tree").setup({})
+
+    local function should_quit_on_neo_tree()
+      local normal_wins = 0
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local cfg = vim.api.nvim_win_get_config(win)
+        if cfg.relative == "" then
+          normal_wins = normal_wins + 1
+        end
+      end
+      if normal_wins ~= 1 then
+        return false
+      end
+      local buf = vim.api.nvim_get_current_buf()
+      return vim.bo[buf].filetype == "neo-tree"
+    end
+
+    local group = vim.api.nvim_create_augroup("NeoTreeAutoQuit", { clear = true })
+    vim.api.nvim_create_autocmd("BufEnter", {
+      group = group,
+      callback = function()
+        if should_quit_on_neo_tree() then
+          vim.cmd("quit")
+        end
+      end,
     })
   end,
 }
-
