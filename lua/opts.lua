@@ -13,3 +13,18 @@ vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 -- Remap 0 to go to first non-blank character
 vim.cmd([[nnoremap <expr> <silent> 0 col('.') == match(getline('.'),'\\S')+1 ? '0' : '^']])
 vim.cmd([[set completeopt+=menuone,noselect,popup]])
+
+local format_grp = vim.api.nvim_create_augroup("AutoFormatOnSave", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePre", {
+	group = format_grp,
+	callback = function(args)
+		-- Skip if no attached LSP client supports formatting
+		local clients = vim.lsp.get_active_clients({ bufnr = args.buf })
+		for _, client in ipairs(clients) do
+			if client.supports_method("textDocument/formatting") then
+				vim.lsp.buf.format({ bufnr = args.buf, async = false })
+				break
+			end
+		end
+	end,
+})
