@@ -104,6 +104,12 @@ map({ "n" }, "gr", function()
 	Snacks.picker.lsp_references()
 end, { desc = "LSP References" })
 
+-- todo
+map({"n"}, "<leader>T", "", { desc = "TODOs"})
+map({"n"}, "<leader>Tt", "<cmd>TodoTelescope<CR>", { desc = "TODO Telescope"})
+map({"n"}, "<leader>Tx", "<cmd>TodoTrouble<CR>", { desc = "TODO Trouble"})
+map({"n"}, "<leader>Tq", "<cmd>TodoQuickFix<CR>", { desc = "TODO QuickFix"})
+
 -- save
 map({ "n", "i", "v" }, "<C-s>", "<esc>:w<CR>", { silent = true })
 
