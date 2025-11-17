@@ -1,6 +1,6 @@
 require("opts")
 require("config.lazy")
-require("mapping")
+require("mappings")
 
 vim.lsp.enable({
 	"lua_ls",
