@@ -18,37 +18,37 @@ vim.cmd([[set completeopt+=fuzzy,noinsert]])
 
 local format_grp = vim.api.nvim_create_augroup("AutoFormatOnSave", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
-	group = format_grp,
-	callback = function(args)
-		-- Skip if no attached LSP client supports formatting
-		local clients = vim.lsp.get_active_clients({ bufnr = args.buf })
-		for _, client in ipairs(clients) do
-			if client.supports_method("textDocument/formatting") then
-				vim.lsp.buf.format({ bufnr = args.buf, async = false })
-				break
-			end
-		end
-	end,
+    group = format_grp,
+    callback = function(args)
+        -- Skip if no attached LSP client supports formatting
+        local clients = vim.lsp.get_active_clients({ bufnr = args.buf })
+        for _, client in ipairs(clients) do
+            if client.supports_method("textDocument/formatting") then
+                vim.lsp.buf.format({ bufnr = args.buf, async = false })
+                break
+            end
+        end
+    end,
 })
 
 if vim.lsp.inlay_hint then
-	local inlay_grp = vim.api.nvim_create_augroup("LspInlayHints", { clear = true })
-	vim.api.nvim_create_autocmd("LspAttach", {
-		group = inlay_grp,
-		callback = function(args)
-			local client_id = args.data and args.data.client_id
-			if not client_id then
-				return
-			end
-			local client = vim.lsp.get_client_by_id(client_id)
-			if client and client.server_capabilities.inlayHintProvider then
-				if type(vim.lsp.inlay_hint) == "table" and vim.lsp.inlay_hint.enable then
-					vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-				elseif type(vim.lsp.inlay_hint) == "function" then
-					vim.lsp.inlay_hint(args.buf, true)
-				end
-				pcall(vim.api.nvim_buf_set_var, args.buf, "inlay_hints_enabled", true)
-			end
-		end,
-	})
+    local inlay_grp = vim.api.nvim_create_augroup("LspInlayHints", { clear = true })
+    vim.api.nvim_create_autocmd("LspAttach", {
+        group = inlay_grp,
+        callback = function(args)
+            local client_id = args.data and args.data.client_id
+            if not client_id then
+                return
+            end
+            local client = vim.lsp.get_client_by_id(client_id)
+            if client and client.server_capabilities.inlayHintProvider then
+                if type(vim.lsp.inlay_hint) == "table" and vim.lsp.inlay_hint.enable then
+                    vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+                elseif type(vim.lsp.inlay_hint) == "function" then
+                    vim.lsp.inlay_hint(args.buf, true)
+                end
+                pcall(vim.api.nvim_buf_set_var, args.buf, "inlay_hints_enabled", true)
+            end
+        end,
+    })
 end
