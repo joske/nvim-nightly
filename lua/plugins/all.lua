@@ -1,7 +1,6 @@
 return {
 	{ "Mofiqul/vscode.nvim" },
-	{ "folke/trouble.nvim", cmd = { "Trouble", "TroubleToggle"}, opts = {} },
-	{ "tpope/vim-fugitive" },
+	{ "tpope/vim-fugitive", lazy = false },
 	{ "j-hui/fidget.nvim", event = "LspAttach", opts = {} },
 	{ "nvim-mini/mini.nvim", version = "*" },
 }
