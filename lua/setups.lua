@@ -8,33 +8,12 @@ require("marks").setup({
 	mappings = {},
 })
 
-require("mason").setup()
-require("mason-lspconfig").setup({
-	ensure_installed = {
-		"lua_ls",
-		"bashls",
-		"tombi",
-		"yamlls",
-	},
-	automatic_installation = true,
-})
-
 local telescope = require("telescope")
 telescope.setup({
 	defaults = {
 		preview = { treesitter = false },
 		color_devicons = true,
 		sorting_strategy = "ascending",
-		borderchars = {
-			"─", -- top
-			"│", -- right
-			"─", -- bottom
-			"│", -- left
-			"┌", -- top-left
-			"┐", -- top-right
-			"┘", -- bottom-right
-			"└", -- bottom-left
-		},
 		path_displays = { "smart" },
 		layout_config = {
 			height = 100,
@@ -67,8 +46,6 @@ vim.cmd([[set completeopt+=menuone,noselect,popup]])
 vim.lsp.enable({
 	"lua_ls",
 })
-
-require("luasnip").setup({ enable_autosnippets = true })
 
 vim.g.rustaceanvim = {
 	server = {
