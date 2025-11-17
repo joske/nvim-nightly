@@ -54,6 +54,10 @@ map("n", "<C-Left>", ":vertical resize -2<CR>", { desc = "Resize split left" })
 map("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Resize split right" })
 map("n", "<leader>c", "<cmd>bp | sp | bn | bd<CR>", { desc = "Close current buffer" })
 
+-- Better indenting in visual mode
+vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
+vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
+
 -- ui
 map("n", "<leader>u", "", { desc = "UI" })
 map("n", "<leader>uh", toggle_inlay_hints, { desc = "Toggle Inlay Hints" })
