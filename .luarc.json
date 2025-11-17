@@ -1,0 +1,5 @@
+{
+  "Lua.diagnostics.globals": ["vim", "Snacks"],
+  "Lua.runtime.version": "LuaJIT",
+  "Lua.workspace.checkThirdParty": false
+}
