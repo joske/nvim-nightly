@@ -16,6 +16,16 @@ vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 8
 vim.opt.mouse = "a"
 vim.opt.clipboard:append { "unnamed", "unnamedplus" }
+
+-- Configure diagnostic display
+vim.diagnostic.config {
+    virtual_text = true,
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+    severity_sort = true,
+}
+
 -- Remap 0 to go to first non-blank character
 vim.keymap.set("n", "0", function()
     local col = vim.fn.col "."

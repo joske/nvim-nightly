@@ -4,6 +4,7 @@ return {
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            "gbprod/none-ls-shellcheck.nvim",
         },
         config = function()
             require("mason").setup()
@@ -25,19 +26,21 @@ return {
                 "tombi",
                 "yamlls",
                 "texlab",
-                "shellcheck",
+                "json-lsp",
 
                 -- formatters
                 "shfmt",
                 "yamlfmt",
-                "xmlformatter",
                 "latexindent",
+
+                -- linters
+                "shellcheck",
             },
-        },
-        integrations = {
-            ["mason-lspconfig"] = true,
-            ["mason-null-ls"] = true,
-            ["mason-nvim-dap"] = true,
+            integrations = {
+                ["mason-lspconfig"] = true,
+                ["mason-null-ls"] = true,
+                ["mason-nvim-dap"] = true,
+            },
         },
     },
 }
