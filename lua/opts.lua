@@ -54,20 +54,12 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 if vim.lsp.inlay_hint then
-    local inlay_grp = vim.api.nvim_create_augroup("LspInlayHints", { clear = true })
     vim.api.nvim_create_autocmd("LspAttach", {
-        group = inlay_grp,
+        group = vim.api.nvim_create_augroup("LspInlayHints", { clear = true }),
         callback = function(args)
-            local client_id = args.data and args.data.client_id
-            if not client_id then return end
-            local client = vim.lsp.get_client_by_id(client_id)
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
             if client and client.server_capabilities.inlayHintProvider then
-                if type(vim.lsp.inlay_hint) == "table" and vim.lsp.inlay_hint.enable then
-                    vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-                elseif type(vim.lsp.inlay_hint) == "function" then
-                    vim.lsp.inlay_hint(args.buf, true)
-                end
-                pcall(vim.api.nvim_buf_set_var, args.buf, "inlay_hints_enabled", true)
+                vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
             end
         end,
     })
