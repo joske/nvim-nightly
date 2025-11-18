@@ -78,29 +78,6 @@ local function todo_picker()
     end, { disable_not_found_warnings = true })
 end
 
-local function smart_quit()
-    local function is_disposable(win)
-        local cfg = vim.api.nvim_win_get_config(win)
-        if cfg.relative ~= "" then return true end
-        local buf = vim.api.nvim_win_get_buf(win)
-        local ft = vim.bo[buf].filetype
-        if ft == "neo-tree" then return true end
-        if vim.bo[buf].buftype ~= "" then return true end
-        local name = vim.api.nvim_buf_get_name(buf)
-        if name == "" and not vim.bo[buf].modified then return true end
-        return false
-    end
-
-    for _, win in ipairs(vim.api.nvim_list_wins()) do
-        if not is_disposable(win) then
-            vim.cmd "quit"
-            return
-        end
-    end
-
-    vim.cmd "qa"
-end
-
 local function toggle_inlay_hints()
     if not vim.lsp.inlay_hint then
         vim.notify("Inlay hints not supported", vim.log.levels.WARN)
@@ -165,7 +142,7 @@ map({ "n" }, "<leader>fT", function() Snacks.picker.lsp_type_definitions() end, 
 map({ "n" }, "<leader>fw", function() Snacks.picker.grep() end, { desc = "Live Grep" })
 
 -- quit
-map({ "n" }, "<leader>q", smart_quit, { desc = "Quit the current buffer." })
+map({ "n" }, "<leader>q", "<cmd>:q<CR>", { desc = "Quit the current buffer." })
 map({ "n" }, "<leader>Q", "<Cmd>:wqa<CR>", { desc = "Quit all buffers and write." })
 
 -- neotree
