@@ -1,6 +1,6 @@
 return {
     "nvim-lualine/lualine.nvim",
-    -- event = "VeryLazy",
+    event = "VeryLazy",
     config = function()
       local function lsp_clients()
         local clients = vim.lsp.get_clients({ bufnr = 0 })

@@ -1,7 +1,5 @@
 local map = vim.keymap.set
 
-vim.g.mapleader = " "
-
 vim.cmd [[
 	noremap! <c-r><c-d> <c-r>=strftime('%F')<cr>
 	noremap! <c-r><c-t> <c-r>=strftime('%T')<cr>
@@ -95,29 +93,14 @@ local function smart_quit()
 end
 
 local function toggle_inlay_hints()
- if not vim.lsp.inlay_hint then
+    if not vim.lsp.inlay_hint then
         vim.notify("Inlay hints not supported", vim.log.levels.WARN)
         return
     end
 
     local bufnr = vim.api.nvim_get_current_buf()
-    if type(vim.lsp.inlay_hint) == "table" and vim.lsp.inlay_hint.enable then
-        local enabled = true
-        if vim.lsp.inlay_hint.is_enabled then enabled = vim.lsp.inlay_hint.is_enabled { bufnr = bufnr } end
-        vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
-        pcall(vim.api.nvim_buf_set_var, bufnr, "inlay_hints_enabled", not enabled)
-    else
-        local ok, value = pcall(vim.api.nvim_buf_get_var, bufnr, "inlay_hints_enabled")
-        local enabled
-        if ok then
-            enabled = value == nil and true or value
-        else
-            enabled = true
-        end
-        local next_state = not enabled
-        vim.lsp.inlay_hint(bufnr, next_state)
-        vim.b.inlay_hints_enabled = next_state
-    end
+    local enabled = vim.lsp.inlay_hint.is_enabled { bufnr = bufnr }
+    vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
 end
 
 local function rust_codelens_run()

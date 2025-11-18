@@ -17,15 +17,23 @@ vim.opt.sidescrolloff = 8
 vim.opt.mouse = "a"
 vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 -- Remap 0 to go to first non-blank character
-vim.cmd([[nnoremap <expr> <silent> 0 col('.') == match(getline('.'),'\\S')+1 ? '0' : '^']])
-vim.cmd([[set completeopt+=fuzzy,noinsert]])
+vim.keymap.set("n", "0", function()
+    local col = vim.fn.col "."
+    local first_non_blank = vim.fn.match(vim.fn.getline ".", "\\S") + 1
+    if col == first_non_blank then
+        return "0"
+    else
+        return "^"
+    end
+end, { expr = true, silent = true, desc = "Toggle between first column and first non-blank" })
+vim.cmd [[set completeopt+=fuzzy,noinsert]]
 
 local format_grp = vim.api.nvim_create_augroup("AutoFormatOnSave", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = format_grp,
     callback = function(args)
         -- Skip if no attached LSP client supports formatting
-        local clients = vim.lsp.get_active_clients({ bufnr = args.buf })
+        local clients = vim.lsp.get_active_clients { bufnr = args.buf }
         for _, client in ipairs(clients) do
             if client.supports_method("textDocument/formatting") then
                 vim.lsp.buf.format({ bufnr = args.buf, async = false })
