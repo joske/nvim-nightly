@@ -1,4 +1,3 @@
-local builtin = require "telescope.builtin"
 local map = vim.keymap.set
 
 vim.g.mapleader = " "
@@ -11,10 +10,69 @@ vim.cmd [[
 	xnoremap <expr> . "<esc><cmd>'<,'>normal! ".v:count1.'.<cr>'
 ]]
 
-local function git_files() builtin.find_files { no_ignore = true } end
+local function env_picker()
+ local env = vim.fn.environ()
+ local items = {}
+ for name, value in pairs(env) do
+  items[#items + 1] = {
+   text = string.format("%s=%s", name, value),
+   name = name,
+   env_value = value,
+  }
+ end
+ table.sort(items, function(a, b) return a.name < b.name end)
+ Snacks.picker({
+  title = "Environment Variables",
+  items = items,
+  format = "text",
+  confirm = function(picker, item)
+   if not item then return end
+   picker:close()
+   vim.fn.setreg("+", item.env_value)
+   Snacks.notify(("Copied %s to clipboard"):format(item.name))
+  end,
+ })
+end
+
+local function git_files()
+ Snacks.picker.files({ ignored = false })
+end
+
+local function todo_picker()
+ local search = require("todo-comments.search")
+ search.search(function(results)
+  if not results or vim.tbl_isempty(results) then
+   Snacks.notify("No TODOs found", vim.log.levels.INFO)
+   return
+  end
+  local items = {}
+  for _, item in ipairs(results) do
+   items[#items + 1] = {
+    text = item.text or item.line,
+    file = item.filename,
+    lnum = item.lnum,
+    col = item.col,
+    value = item,
+   }
+  end
+  Snacks.picker({
+   title = "TODOs",
+   items = items,
+   format = "file",
+   confirm = function(picker, selection)
+    if not selection then return end
+    picker:close()
+    vim.schedule(function()
+     vim.cmd(("edit %s"):format(vim.fn.fnameescape(selection.value.filename)))
+     vim.api.nvim_win_set_cursor(0, { selection.value.lnum, math.max(selection.value.col - 1, 0) })
+    end)
+   end,
+  })
+ end, { disable_not_found_warnings = true })
+end
 
 local function toggle_inlay_hints()
-    if not vim.lsp.inlay_hint then
+ if not vim.lsp.inlay_hint then
         vim.notify("Inlay hints not supported", vim.log.levels.WARN)
         return
     end
@@ -71,25 +129,24 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 map("n", "<leader>u", "", { desc = "UI" })
 map("n", "<leader>uh", toggle_inlay_hints, { desc = "Toggle Inlay Hints" })
 
--- telescope
+-- pickers
 map({ "n" }, "<leader>f", "", { desc = "Find" })
 map({ "n" }, "<leader>fa", require("actions-preview").code_actions)
 map({ "n" }, "<leader>fB", function() Snacks.picker.grep_buffers() end, { desc = "Grep Open Buffers" })
 map({ "n" }, "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Find Buffer" })
-map({ "n" }, "<leader>fc", builtin.git_bcommits)
-map({ "n" }, "<leader>fd", builtin.diagnostics, { desc = "Diagnostics" })
-map({ "n" }, "<leader>fe", "<cmd>Telescope env<cr>")
-map({ "n" }, "<leader>ff", function() Snacks.picker.files() end, { desc = "Files" })
+map({ "n" }, "<leader>fc", function() Snacks.picker.git_log_file() end, { desc = "File Commits" })
 map({ "n" }, "<leader>fd", function() Snacks.picker.diagnostics() end, { desc = "Diagnostics" })
-map({ "n" }, "<leader>fg", git_files, { desc = "Git Files" })
-map({ "n" }, "<leader>fh", builtin.help_tags, { desc = "Help Tags" })
-map({ "n" }, "<leader>fk", builtin.keymaps, { desc = "Keymaps" })
-map({ "n" }, "<leader>fm", builtin.man_pages, { desc = "Man Pages" })
-map({ "n" }, "<leader>fo", builtin.oldfiles, { desc = "Old Files" })
-map({ "n" }, "<leader>fr", builtin.lsp_references, { desc = "LSP References" })
-map({ "n" }, "<leader>fs", builtin.current_buffer_fuzzy_find, { desc = "Fuzzy Find" })
-map({ "n" }, "<leader>ft", builtin.builtin)
-map({ "n" }, "<leader>fT", builtin.lsp_type_definitions, { desc = "LSP Type Definitions" })
+map({ "n" }, "<leader>fe", env_picker, { desc = "Environment Variables" })
+map({ "n" }, "<leader>ff", function() Snacks.picker.files() end, { desc = "Files" })
+map({ "n" }, "<leader>fg", git_files, { desc = "Project Files (All)" })
+map({ "n" }, "<leader>fh", function() Snacks.picker.help() end, { desc = "Help Tags" })
+map({ "n" }, "<leader>fk", function() Snacks.picker.keymaps() end, { desc = "Keymaps" })
+map({ "n" }, "<leader>fm", function() Snacks.picker.man() end, { desc = "Man Pages" })
+map({ "n" }, "<leader>fo", function() Snacks.picker.recent() end, { desc = "Recent Files" })
+map({ "n" }, "<leader>fr", function() Snacks.picker.lsp_references() end, { desc = "LSP References" })
+map({ "n" }, "<leader>fs", function() Snacks.picker.lines() end, { desc = "Buffer Lines" })
+map({ "n" }, "<leader>ft", function() Snacks.picker.pickers() end, { desc = "Snacks Pickers" })
+map({ "n" }, "<leader>fT", function() Snacks.picker.lsp_type_definitions() end, { desc = "LSP Type Definitions" })
 map({ "n" }, "<leader>fw", function() Snacks.picker.grep() end, { desc = "Live Grep" })
 
 -- quit
@@ -135,7 +192,7 @@ map({ "n" }, "gr", function() Snacks.picker.lsp_references() end, { desc = "Refe
 
 -- todo
 map({ "n" }, "<leader>T", "", { desc = "TODOs" })
-map({ "n" }, "<leader>Tt", "<cmd>TodoTelescope<CR>", { desc = "TODO Telescope" })
+map({ "n" }, "<leader>Tt", todo_picker, { desc = "TODO Picker" })
 map({ "n" }, "<leader>Tx", "<cmd>TodoTrouble<CR>", { desc = "TODO Trouble" })
 map({ "n" }, "<leader>Tq", "<cmd>TodoQuickFix<CR>", { desc = "TODO QuickFix" })
 
