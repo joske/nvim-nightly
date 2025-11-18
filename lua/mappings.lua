@@ -1,19 +1,17 @@
-local builtin = require("telescope.builtin")
+local builtin = require "telescope.builtin"
 local map = vim.keymap.set
 
 vim.g.mapleader = " "
 
-vim.cmd([[
+vim.cmd [[
 	noremap! <c-r><c-d> <c-r>=strftime('%F')<cr>
 	noremap! <c-r><c-t> <c-r>=strftime('%T')<cr>
 	noremap! <c-r><c-f> <c-r>=expand('%:t')<cr>
 	noremap! <c-r><c-p> <c-r>=expand('%:p')<cr>
 	xnoremap <expr> . "<esc><cmd>'<,'>normal! ".v:count1.'.<cr>'
-]])
+]]
 
-local function git_files()
-    builtin.find_files({ no_ignore = true })
-end
+local function git_files() builtin.find_files { no_ignore = true } end
 
 local function toggle_inlay_hints()
     if not vim.lsp.inlay_hint then
@@ -24,9 +22,7 @@ local function toggle_inlay_hints()
     local bufnr = vim.api.nvim_get_current_buf()
     if type(vim.lsp.inlay_hint) == "table" and vim.lsp.inlay_hint.enable then
         local enabled = true
-        if vim.lsp.inlay_hint.is_enabled then
-            enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
-        end
+        if vim.lsp.inlay_hint.is_enabled then enabled = vim.lsp.inlay_hint.is_enabled { bufnr = bufnr } end
         vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
         pcall(vim.api.nvim_buf_set_var, bufnr, "inlay_hints_enabled", not enabled)
     else
@@ -41,6 +37,19 @@ local function toggle_inlay_hints()
         vim.lsp.inlay_hint(bufnr, next_state)
         vim.b.inlay_hints_enabled = next_state
     end
+end
+
+local function rust_codelens_run()
+    if not vim.lsp.codelens then
+        vim.notify("CodeLens not supported", vim.log.levels.WARN)
+        return
+    end
+    vim.lsp.codelens.run()
+end
+
+local function rust_codelens_refresh()
+    if not vim.lsp.codelens then return end
+    vim.lsp.codelens.refresh()
 end
 
 -- navigation
@@ -99,6 +108,8 @@ map({ "n" }, "<Leader>r", "", { desc = "Rust" })
 map({ "n" }, "<Leader>ra", "<cmd>RustLsp codeAction<CR>", { desc = "Code Action" })
 map({ "n" }, "<Leader>rC", "<cmd>RustLsp openCargo<CR>", { desc = "Open Cargo.toml" })
 map({ "n" }, "<Leader>rm", "<cmd>RustLsp expandMacro<CR>", { desc = "Expand Macro" })
+map({ "n" }, "<Leader>rr", rust_codelens_run, { desc = "Run Rust test (CodeLens)" })
+map({ "n" }, "<Leader>rR", rust_codelens_refresh, { desc = "Refresh Rust CodeLens" })
 
 -- packages
 map({ "n" }, "<leader>p", "", { desc = "Packages" })
@@ -116,7 +127,7 @@ map("n", "<leader>n", function() Snacks.picker.notifications() end, { desc = "No
 -- LSP
 map({ "n" }, "<Leader>l", "", { desc = "LSP" })
 map({ "n", "v", "x" }, "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
-map({ "n", "v", "x" }, "<leader>la", vim.lsp.codeAction, { desc = "Code Action" })
+map({ "n", "v", "x" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Code Action" })
 map({ "n" }, "<Leader>lr", vim.lsp.buf.rename, { desc = "Rename" })
 map({ "n" }, "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Definition" })
 map({ "n" }, "gi", function() Snacks.picker.lsp_implementations() end, { desc = "Implementations" })
