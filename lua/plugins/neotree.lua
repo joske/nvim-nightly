@@ -13,28 +13,28 @@ return {
     lazy = false,
     config = function()
         require("neo-tree").setup {
+            close_if_last_window = true,
+            enable_git_status = true,
+            git_status_async = false,
             filesystem = {
-                follow_current_file = { enabled = true },
+                follow_current_file = { enabled = true, leave_dirs_open = true },
                 use_libuv_file_watcher = true,
             },
         }
 
-        local function should_quit_on_neo_tree()
-            local normal_wins = 0
-            for _, win in ipairs(vim.api.nvim_list_wins()) do
-                local cfg = vim.api.nvim_win_get_config(win)
-                if cfg.relative == "" then normal_wins = normal_wins + 1 end
-            end
-            if normal_wins ~= 1 then return false end
-            local buf = vim.api.nvim_get_current_buf()
-            return vim.bo[buf].filetype == "neo-tree"
-        end
+        -- Refresh neo-tree git status after git operations
+        local refresh_group = vim.api.nvim_create_augroup("NeoTreeRefresh", { clear = true })
 
-        local group = vim.api.nvim_create_augroup("NeoTreeAutoQuit", { clear = true })
-        vim.api.nvim_create_autocmd("BufEnter", {
-            group = group,
+        -- Refresh when any terminal closes (catches lazygit via Snacks)
+        vim.api.nvim_create_autocmd("BufLeave", {
+            group = refresh_group,
+            pattern = "*lazygit*",
             callback = function()
-                if should_quit_on_neo_tree() then vim.cmd "quit" end
+                -- Add delay to ensure git finishes writing index
+                vim.defer_fn(function()
+                    local events = require "neo-tree.events"
+                    events.fire_event(events.GIT_EVENT)
+                end, 100)
             end,
         })
     end,
