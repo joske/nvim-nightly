@@ -22,6 +22,7 @@ return {
             -- Make sure to use the names found in `:Mason`
             ensure_installed = {
                 -- language servers
+                -- don't put rust-analyzer here, use the system rust-analyzer instead
                 "lua-language-server",
                 "tombi",
                 "yamlls",
