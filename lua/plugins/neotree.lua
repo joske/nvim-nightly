@@ -12,7 +12,12 @@ return {
   },
   lazy = false,
   config = function()
-    require("neo-tree").setup({})
+    require("neo-tree").setup({
+      filesystem = {
+        follow_current_file = { enabled = true },
+        use_libuv_file_watcher = true,
+      },
+    })
 
     local function should_quit_on_neo_tree()
       local normal_wins = 0
