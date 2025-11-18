@@ -9,87 +9,85 @@ vim.cmd [[
 ]]
 
 local function env_picker()
- local env = vim.fn.environ()
- local items = {}
- for name, value in pairs(env) do
-  items[#items + 1] = {
-   text = string.format("%s=%s", name, value),
-   name = name,
-   env_value = value,
-  }
- end
- table.sort(items, function(a, b) return a.name < b.name end)
- Snacks.picker({
-  title = "Environment Variables",
-  items = items,
-  format = "text",
-  confirm = function(picker, item)
-   if not item then return end
-   picker:close()
-   vim.fn.setreg("+", item.env_value)
-   Snacks.notify(("Copied %s to clipboard"):format(item.name))
-  end,
- })
+    local env = vim.fn.environ()
+    local items = {}
+    for name, value in pairs(env) do
+        items[#items + 1] = {
+            text = string.format("%s=%s", name, value),
+            name = name,
+            env_value = value,
+        }
+    end
+    table.sort(items, function(a, b) return a.name < b.name end)
+    Snacks.picker {
+        title = "Environment Variables",
+        items = items,
+        format = "text",
+        confirm = function(picker, item)
+            if not item then return end
+            picker:close()
+            vim.fn.setreg("+", item.env_value)
+            Snacks.notify(("Copied %s to clipboard"):format(item.name))
+        end,
+    }
 end
 
-local function git_files()
- Snacks.picker.files({ ignored = false })
-end
+local function git_files() Snacks.picker.files { ignored = false } end
 
 local function todo_picker()
- local search = require("todo-comments.search")
- search.search(function(results)
-  if not results or vim.tbl_isempty(results) then
-   Snacks.notify("No TODOs found", vim.log.levels.INFO)
-   return
-  end
-  local items = {}
-  for _, item in ipairs(results) do
-   items[#items + 1] = {
-    text = item.text or item.line,
-    file = item.filename,
-    lnum = item.lnum,
-    col = item.col,
-    value = item,
-   }
-  end
-  Snacks.picker({
-   title = "TODOs",
-   items = items,
-   format = "file",
-   confirm = function(picker, selection)
-    if not selection then return end
-    picker:close()
-    vim.schedule(function()
-     vim.cmd(("edit %s"):format(vim.fn.fnameescape(selection.value.filename)))
-     vim.api.nvim_win_set_cursor(0, { selection.value.lnum, math.max(selection.value.col - 1, 0) })
-    end)
-   end,
-  })
- end, { disable_not_found_warnings = true })
+    local search = require "todo-comments.search"
+    search.search(function(results)
+        if not results or vim.tbl_isempty(results) then
+            Snacks.notify("No TODOs found", vim.log.levels.INFO)
+            return
+        end
+        local items = {}
+        for _, item in ipairs(results) do
+            items[#items + 1] = {
+                text = item.text or item.line,
+                file = item.filename,
+                lnum = item.lnum,
+                col = item.col,
+                value = item,
+            }
+        end
+        Snacks.picker {
+            title = "TODOs",
+            items = items,
+            format = "file",
+            confirm = function(picker, selection)
+                if not selection then return end
+                picker:close()
+                vim.schedule(function()
+                    vim.cmd(("edit %s"):format(vim.fn.fnameescape(selection.value.filename)))
+                    vim.api.nvim_win_set_cursor(0, { selection.value.lnum, math.max(selection.value.col - 1, 0) })
+                end)
+            end,
+        }
+    end, { disable_not_found_warnings = true })
 end
 
 local function smart_quit()
- local function is_disposable(win)
-  local cfg = vim.api.nvim_win_get_config(win)
-  if cfg.relative ~= "" then return true end
-  local buf = vim.api.nvim_win_get_buf(win)
-  local ft = vim.bo[buf].filetype
-  if ft == "neo-tree" then return true end
-  if vim.bo[buf].buftype ~= "" then return true end
-  local name = vim.api.nvim_buf_get_name(buf)
-  if name == "" and not vim.bo[buf].modified then return true end
-  return false
- end
+    local function is_disposable(win)
+        local cfg = vim.api.nvim_win_get_config(win)
+        if cfg.relative ~= "" then return true end
+        local buf = vim.api.nvim_win_get_buf(win)
+        local ft = vim.bo[buf].filetype
+        if ft == "neo-tree" then return true end
+        if vim.bo[buf].buftype ~= "" then return true end
+        local name = vim.api.nvim_buf_get_name(buf)
+        if name == "" and not vim.bo[buf].modified then return true end
+        return false
+    end
 
- for _, win in ipairs(vim.api.nvim_list_wins()) do
-  if not is_disposable(win) then
-   vim.cmd("quit")
-   return
-  end
- end
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        if not is_disposable(win) then
+            vim.cmd "quit"
+            return
+        end
+    end
 
- vim.cmd("qa")
+    vim.cmd "qa"
 end
 
 local function toggle_inlay_hints()

@@ -24,9 +24,7 @@ return {
                 callback = function(args)
                     local bufnr = args.buf
                     if vim.bo[bufnr].filetype ~= "rust" or not vim.lsp.codelens then return end
-                    vim.api.nvim_buf_call(bufnr, function()
-                        pcall(vim.lsp.codelens.refresh)
-                    end)
+                    vim.api.nvim_buf_call(bufnr, function() pcall(vim.lsp.codelens.refresh) end)
                 end,
             })
         end,
