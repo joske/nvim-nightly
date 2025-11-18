@@ -1,5 +1,16 @@
 local map = vim.keymap.set
 
+-- Remap 0 to go to first non-blank character
+vim.keymap.set("n", "0", function()
+    local col = vim.fn.col "."
+    local first_non_blank = vim.fn.match(vim.fn.getline ".", "\\S") + 1
+    if col == first_non_blank then
+        return "0"
+    else
+        return "^"
+    end
+end, { expr = true, silent = true, desc = "Toggle between first column and first non-blank" })
+
 vim.cmd [[
 	noremap! <c-r><c-d> <c-r>=strftime('%F')<cr>
 	noremap! <c-r><c-t> <c-r>=strftime('%T')<cr>

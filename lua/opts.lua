@@ -26,16 +26,6 @@ vim.diagnostic.config {
     severity_sort = true,
 }
 
--- Remap 0 to go to first non-blank character
-vim.keymap.set("n", "0", function()
-    local col = vim.fn.col "."
-    local first_non_blank = vim.fn.match(vim.fn.getline ".", "\\S") + 1
-    if col == first_non_blank then
-        return "0"
-    else
-        return "^"
-    end
-end, { expr = true, silent = true, desc = "Toggle between first column and first non-blank" })
 vim.cmd [[set completeopt+=fuzzy,noinsert]]
 
 local format_grp = vim.api.nvim_create_augroup("AutoFormatOnSave", { clear = true })
