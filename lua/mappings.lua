@@ -108,18 +108,19 @@ map({ "n" }, "<leader>pm", "<cmd>Mason<CR>", { desc = "Mason" })
 -- git
 map("n", "<leader>g", "", { desc = "Git" })
 map("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "LazyGit" })
+map("n", "<leader>gb", "<cmd>Git blame<CR>", { desc = "Git Blame" })
 
 -- notifications
 map("n", "<leader>n", function() Snacks.picker.notifications() end, { desc = "Notification History" })
 
 -- LSP
 map({ "n" }, "<Leader>l", "", { desc = "LSP" })
-map({ "n", "v", "x" }, "<leader>lf", vim.lsp.buf.format, { desc = "LSP Format" })
-map({ "n" }, "<Leader>lr", vim.lsp.buf.rename, { desc = "LSP Rename" })
-
-map({ "n" }, "gd", function() Snacks.picker.lsp_definitions() end, { desc = "LSP Definition" })
-map({ "n" }, "gi", function() Snacks.picker.lsp_implementations() end, { desc = "LSP Implementations" })
-map({ "n" }, "gr", function() Snacks.picker.lsp_references() end, { desc = "LSP References" })
+map({ "n", "v", "x" }, "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
+map({ "n", "v", "x" }, "<leader>la", vim.lsp.codeAction, { desc = "Code Action" })
+map({ "n" }, "<Leader>lr", vim.lsp.buf.rename, { desc = "Rename" })
+map({ "n" }, "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Definition" })
+map({ "n" }, "gi", function() Snacks.picker.lsp_implementations() end, { desc = "Implementations" })
+map({ "n" }, "gr", function() Snacks.picker.lsp_references() end, { desc = "References" })
 
 -- todo
 map({ "n" }, "<leader>T", "", { desc = "TODOs" })
@@ -127,8 +128,11 @@ map({ "n" }, "<leader>Tt", "<cmd>TodoTelescope<CR>", { desc = "TODO Telescope" }
 map({ "n" }, "<leader>Tx", "<cmd>TodoTrouble<CR>", { desc = "TODO Trouble" })
 map({ "n" }, "<leader>Tq", "<cmd>TodoQuickFix<CR>", { desc = "TODO QuickFix" })
 
+-- texlab
+map({ "n" }, "<leader>mt", "<cmd>LspTexlabBuild<CR>", { desc = "Build LaTeX Document" })
+
 -- save
-map({ "n", "i", "v" }, "<C-s>", "<esc>:w<CR>", { silent = true })
+map({ "n", "i", "v" }, "<C-s>", "<esc><cmd>w<CR>", { silent = true })
 
 -- term
 map({ "n", "t" }, "<F7>", "<cmd>ToggleTerm<CR>", { desc = "Open Terminal" })
