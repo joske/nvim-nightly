@@ -7,9 +7,6 @@ return {
         "nvim-tree/nvim-web-devicons",
         "antosha417/nvim-lsp-file-operations",
     },
-    keys = {
-        { "<leader>e", "<cmd>Neotree toggle<CR>", desc = "Toggle Neo-tree" },
-    },
     lazy = false,
     config = function()
         require("neo-tree").setup {
@@ -22,12 +19,8 @@ return {
             },
         }
 
-        -- Refresh neo-tree git status after git operations
-        local refresh_group = vim.api.nvim_create_augroup("NeoTreeRefresh", { clear = true })
-
         -- Refresh when any terminal closes (catches lazygit via Snacks)
         vim.api.nvim_create_autocmd("BufLeave", {
-            group = refresh_group,
             pattern = "*lazygit*",
             callback = function()
                 -- Add delay to ensure git finishes writing index
