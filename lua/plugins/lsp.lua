@@ -28,6 +28,7 @@ return {
                 "yamlls",
                 "texlab",
                 "json-lsp",
+                "marksman",
 
                 -- formatters
                 "shfmt",
