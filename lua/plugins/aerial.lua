@@ -18,20 +18,5 @@ return {
     },
     config = function(_, opts)
         require('aerial').setup(opts)
-
-        -- Auto-close aerial when it's the last window
-        vim.api.nvim_create_autocmd("QuitPre", {
-            callback = function()
-                local wins = vim.api.nvim_list_wins()
-                -- Check if aerial is open
-                for _, win in ipairs(wins) do
-                    local buf = vim.api.nvim_win_get_buf(win)
-                    local ft = vim.bo[buf].filetype
-                    if ft == "aerial" then
-                        vim.cmd("AerialClose")
-                    end
-                end
-            end,
-        })
     end,
 }
