@@ -219,3 +219,6 @@ map({ "n" }, "<leader>ds", function() require("dap").session() end, { desc = "Se
 map({ "n" }, "<leader>dt", function() require("dap").terminate() end, { desc = "Terminate" })
 map({ "n" }, "<leader>du", function() require("dapui").toggle() end, { desc = "Toggle DAP UI" })
 map({ "n" }, "<leader>dw", function() require("dap.ui.widgets").hover() end, { desc = "Widgets" })
+
+-- aerial
+map({ "n" }, "<leader>lS", "<cmd>AerialToggle!<CR>", { desc = "Toggle Aerial" })
