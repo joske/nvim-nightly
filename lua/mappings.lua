@@ -222,3 +222,11 @@ map({ "n" }, "<leader>dw", function() require("dap.ui.widgets").hover() end, { d
 
 -- aerial
 map({ "n" }, "<leader>lS", "<cmd>AerialToggle!<CR>", { desc = "Toggle Aerial" })
+
+-- session
+map({ "n" }, "<leader>S", "", { desc = "Session" })
+map({ "n" }, "<leader>Ss", function() require("resession").save() end, { desc = "Save Session" })
+map({ "n" }, "<leader>Sl", function() require("resession").load(nil, { reset = false }) end, { desc = "Load Session" })
+map({ "n" }, "<leader>S.",
+    function() require("resession").load(vim.fn.getcwd(), { dir = "dirsession", reset = false }) end,
+    { desc = "Load Dir Session" })
