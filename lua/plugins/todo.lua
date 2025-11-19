@@ -4,8 +4,6 @@ return {
         "nvim-lua/plenary.nvim",
     },
     event = "VeryLazy",
-    opts = {
-        -- your options
-    },
+    opts = {},
     config = function(_, opts) require("todo-comments").setup(opts) end,
 }
