@@ -8,9 +8,8 @@ return {
             default_direction = "right",
         },
         show_guides = true,
-        filter_kind = false,
-        attach_mode = "global",
-        close_automatic_events = { "unsupported" },
+        attach_mode = "window",
+        close_automatic_events = { "unsupported", "unfocus" },
         open_automatic = true,
     },
     dependencies = {
