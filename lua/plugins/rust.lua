@@ -15,6 +15,12 @@ return {
                         },
                     },
                 },
+                dap = {
+                    adapter = require("rustaceanvim.config").get_codelldb_adapter(
+                        vim.fn.stdpath("data") .. "/mason/bin/codelldb",
+                        vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/lldb/lib/liblldb.so"
+                    ),
+                },
             }
 
             local codelens_group = vim.api.nvim_create_augroup("RustCodeLens", { clear = true })
