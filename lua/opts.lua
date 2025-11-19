@@ -13,6 +13,10 @@ vim.opt.number = true
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 8
+vim.opt.undofile = true
+vim.opt.updatetime = 300
+vim.writebackup = false
+vim.opt.showmode = false
 vim.opt.mouse = "a"
 vim.opt.clipboard:append { "unnamed", "unnamedplus" }
 
