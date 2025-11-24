@@ -13,15 +13,16 @@ return {
         "nvim-mini/mini.clue",
         version = "*",
         config = function()
-            require("mini.clue").setup(
-                {
-                    -- Register `<Leader>` as trigger
-                    triggers = {
-                        { mode = 'n', keys = '<Leader>' },
-                        { mode = 'x', keys = '<Leader>' },
-                    },
-                }
-            )
+            require("mini.clue").setup({
+                window = {
+                    config = { anchor = 'SW', row = 'auto', col = 'auto', }
+                },
+                -- Register `<Leader>` as trigger
+                triggers = {
+                    { mode = 'n', keys = '<Leader>' },
+                    { mode = 'x', keys = '<Leader>' },
+                },
+            })
         end,
     },
     {
