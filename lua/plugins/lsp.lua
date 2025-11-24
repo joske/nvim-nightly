@@ -29,6 +29,7 @@ return {
                 "texlab",
                 "json-lsp",
                 "marksman",
+                "dockerfile-language-server",
 
                 -- formatters
                 "shfmt",
