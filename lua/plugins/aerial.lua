@@ -10,7 +10,11 @@ return {
         show_guides = true,
         attach_mode = "window",
         close_automatic_events = { "unsupported", "unfocus" },
-        open_automatic = true,
+        open_automatic = false,
+        ignore = {
+            filetypes = { "help", "alpha", "dashboard", "neo-tree", "nvim-tree", "lazy", "mason", "toggleterm" },
+            unlisted_buffers = true
+        },
     },
     dependencies = {
         "nvim-treesitter/nvim-treesitter",
