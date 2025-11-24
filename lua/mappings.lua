@@ -189,8 +189,10 @@ map({ "n" }, "<leader>Tt", todo_picker, { desc = "TODO Picker" })
 map({ "n" }, "<leader>Tx", "<cmd>TodoTrouble<CR>", { desc = "TODO Trouble" })
 map({ "n" }, "<leader>Tq", "<cmd>TodoQuickFix<CR>", { desc = "TODO QuickFix" })
 
--- texlab
-map({ "n" }, "<leader>mt", "<cmd>LspTexlabBuild<CR>", { desc = "Build LaTeX Document" })
+-- Build
+map({ "n" }, "<leader>b", "", { desc = "Build" })
+map({ "n" }, "<leader>bt", "<cmd>LspTexlabBuild<CR>", { desc = "Build LaTeX Document" })
+map({ "n" }, "<leader>bc", "<cmd>!cargo build<CR>", { desc = "Cargo Build" })
 
 -- save
 map({ "n", "i", "v" }, "<C-s>", "<esc><cmd>w<CR>", { silent = true })
