@@ -29,6 +29,7 @@ return {
                 "texlab",
                 "json-lsp",
                 "marksman",
+                "bashls",
                 "dockerfile-language-server",
 
                 -- formatters
@@ -38,6 +39,8 @@ return {
 
                 -- linters
                 "shellcheck",
+                -- debug
+                "codelldb",
             },
             integrations = {
                 ["mason-lspconfig"] = true,

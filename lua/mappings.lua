@@ -142,8 +142,8 @@ map({ "n" }, "<leader>fT", function() Snacks.picker.lsp_type_definitions() end, 
 map({ "n" }, "<leader>fw", function() Snacks.picker.grep() end, { desc = "Live Grep" })
 
 -- quit
-map({ "n" }, "<leader>q", "<cmd>:q<CR>", { desc = "Quit the current buffer." })
-map({ "n" }, "<leader>Q", "<Cmd>:wqa<CR>", { desc = "Quit all buffers and write." })
+map({ "n" }, "<leader>q", "<cmd>:qa<CR>", { desc = "Quit NeoVim." })
+map({ "n" }, "<leader>Q", "<Cmd>:wqa<CR>", { desc = "Write and Quit" })
 
 -- neotree
 map({ "n" }, "<leader>e", "<Cmd>:Neotree toggle<CR>", { desc = "Toggle Neotree" })
@@ -160,6 +160,16 @@ map({ "n" }, "<Leader>rd", "<cmd>RustLsp debuggables<CR>", { desc = "Debug" })
 map({ "n" }, "<Leader>rm", "<cmd>RustLsp expandMacro<CR>", { desc = "Expand Macro" })
 map({ "n" }, "<Leader>rr", rust_codelens_run, { desc = "Run Rust test (CodeLens)" })
 map({ "n" }, "<Leader>rR", rust_codelens_refresh, { desc = "Refresh Rust CodeLens" })
+
+-- test
+map({ "n" }, "<Leader>t", "", { desc = "Test" })
+map({ "n" }, "<leader>tt", function() require("neotest").run.run() end, { desc = "Run nearest test" })
+map({ "n" }, "<leader>tT", function() require("neotest").run.run(vim.fn.expand "%") end, { desc = "Run file tests" })
+map({ "n" }, "<leader>ts", function() require("neotest").summary.toggle() end, { desc = "Toggle test summary" })
+map({ "n" }, "<leader>to", function() require("neotest").output_panel.toggle() end, { desc = "Toggle test output" })
+map({ "n" }, "<leader>rt", function() require("neotest").run.run(vim.fn.expand "%") end,
+    { desc = "Rust: cargo test (file)", })
+map({ "n" }, "<leader>rT", function() require("neotest").run.run() end, { desc = "Rust: cargo test (nearest)" })
 
 -- packages
 map({ "n" }, "<leader>p", "", { desc = "Packages" })
@@ -179,6 +189,7 @@ map({ "n" }, "<Leader>l", "", { desc = "LSP" })
 map({ "n", "v", "x" }, "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
 map({ "n", "v", "x" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Code Action" })
 map({ "n" }, "<Leader>lr", vim.lsp.buf.rename, { desc = "Rename" })
+map({ "n" }, "<leader>lS", "<cmd>AerialToggle!<CR>", { desc = "Toggle Aerial" })
 map({ "n" }, "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Definition" })
 map({ "n" }, "gi", function() Snacks.picker.lsp_implementations() end, { desc = "Implementations" })
 map({ "n" }, "gr", function() Snacks.picker.lsp_references() end, { desc = "References" })
@@ -221,9 +232,6 @@ map({ "n" }, "<leader>ds", function() require("dap").session() end, { desc = "Se
 map({ "n" }, "<leader>dt", function() require("dap").terminate() end, { desc = "Terminate" })
 map({ "n" }, "<leader>du", function() require("dapui").toggle() end, { desc = "Toggle DAP UI" })
 map({ "n" }, "<leader>dw", function() require("dap.ui.widgets").hover() end, { desc = "Widgets" })
-
--- aerial
-map({ "n" }, "<leader>lS", "<cmd>AerialToggle!<CR>", { desc = "Toggle Aerial" })
 
 -- session
 map({ "n" }, "<leader>S", "", { desc = "Session" })
