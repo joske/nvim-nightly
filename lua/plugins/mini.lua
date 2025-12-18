@@ -5,6 +5,11 @@ return {
         config = function() require("mini.move").setup() end,
     },
     {
+        "nvim-mini/mini.notify",
+        version = "*",
+        config = function() require("mini.notify").setup() end,
+    },
+    {
         "nvim-mini/mini.pairs",
         version = "*",
         config = function() require("mini.pairs").setup() end,
