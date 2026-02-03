@@ -35,9 +35,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     group = format_grp,
     callback = function(args)
         -- Skip if no attached LSP client supports formatting
-        local clients = vim.lsp.get_active_clients { bufnr = args.buf }
+        local clients = vim.lsp.get_clients { bufnr = args.buf }
         for _, client in ipairs(clients) do
-            if client.supports_method "textDocument/formatting" then
+            if client.server_capabilities.documentFormattingProvider then
                 vim.lsp.buf.format { bufnr = args.buf, async = false }
                 break
             end
