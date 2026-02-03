@@ -12,7 +12,7 @@ return {
         close_automatic_events = { "unsupported", "unfocus" },
         open_automatic = false,
         ignore = {
-            filetypes = { "help", "alpha", "dashboard", "neo-tree", "nvim-tree", "lazy", "mason", "toggleterm" },
+            filetypes = { "help", "alpha", "dashboard", "neo-tree", "nvim-tree", "lazy", "mason", "toggleterm", "snacks_picker_list" },
             unlisted_buffers = true
         },
     },

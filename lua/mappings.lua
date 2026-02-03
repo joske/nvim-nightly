@@ -146,8 +146,8 @@ map({ "n" }, "<leader>q", "<cmd>:qa<CR>", { desc = "Quit NeoVim." })
 map({ "n" }, "<leader>Q", "<Cmd>:wqa<CR>", { desc = "Write and Quit" })
 
 -- neotree
-map({ "n" }, "<leader>e", "<Cmd>:Neotree toggle<CR>", { desc = "Toggle Neotree" })
-map({ "n" }, "<leader>o", "<Cmd>:Neotree focus<CR>", { desc = "Focus Neotree" })
+map({ "n" }, "<leader>e", function() Snacks.explorer() end, { desc = "Toggle Neotree" })
+map({ "n" }, "<leader>o", function() Snacks.explorer.open() end, { desc = "Focus Neotree" })
 
 -- markdown
 map({ "n" }, "<Leader>gm", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Markdown Preview" })
