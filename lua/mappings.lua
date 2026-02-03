@@ -145,12 +145,15 @@ map({ "n" }, "<leader>fw", function() Snacks.picker.grep() end, { desc = "Live G
 map({ "n" }, "<leader>q", "<cmd>:qa<CR>", { desc = "Quit NeoVim." })
 map({ "n" }, "<leader>Q", "<Cmd>:wqa<CR>", { desc = "Write and Quit" })
 
+-- notifier
+map({ "n" }, "<leader>nh", function() Snacks.notifier.show_history() end, { desc = "Show Notification History" })
+
 -- neotree
 map({ "n" }, "<leader>e", function() Snacks.explorer() end, { desc = "Toggle Neotree" })
 map({ "n" }, "<leader>o", function() Snacks.explorer.open() end, { desc = "Focus Neotree" })
 
 -- markdown
-map({ "n" }, "<Leader>gm", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Markdown Preview" })
+map({ "n" }, "gm", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Markdown Preview" })
 
 -- rust
 map({ "n" }, "<Leader>r", "", { desc = "Rust" })
@@ -180,6 +183,7 @@ map({ "n" }, "<leader>pm", "<cmd>Mason<CR>", { desc = "Mason" })
 map("n", "<leader>g", "", { desc = "Git" })
 map("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "LazyGit" })
 map("n", "<leader>gb", "<cmd>Git blame<CR>", { desc = "Git Blame" })
+map("n", "<leader>gB", function() Snacks.git.blame_line() end, { desc = "Git Blame Line" })
 
 -- notifications
 map("n", "<leader>n", function() Snacks.picker.notifications() end, { desc = "Notification History" })
@@ -209,7 +213,7 @@ map({ "n" }, "<leader>bc", "<cmd>!cargo build<CR>", { desc = "Cargo Build" })
 map({ "n", "i", "v" }, "<C-s>", "<esc><cmd>w<CR>", { silent = true })
 
 -- term
-map({ "n", "t" }, "<F7>", "<cmd>ToggleTerm<CR>", { desc = "Open Terminal" })
+map({ "n", "t" }, "<F7>", function() Snacks.terminal() end, { desc = "Open Terminal" })
 
 -- debug (DAP)
 map({ "n" }, "<leader>d", "", { desc = "Debug" })

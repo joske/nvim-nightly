@@ -10,8 +10,7 @@ Modern Neovim config for 0.11+
 - **Mason** for tool installation
 - **none-ls** for formatting (shfmt, yamlfmt) and linting (shellcheck)
 - **Treesitter** for syntax highlighting
-- **neo-tree** for file explorer with git integration
-- **Snacks** for pickers, notifications, lazygit integration, and dashboard
+- **Snacks** for terminal, pickers, explorer, notifications, lazygit integration, and dashboard
 - **lualine** for statusline
 - **bufferline** for buffer tabs
 - **which-key** for keybinding hints
