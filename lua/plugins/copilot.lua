@@ -16,7 +16,7 @@ end
 return {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
-    event = "User File",
+    event = "InsertEnter",
     opts = { suggestion = { auto_trigger = true, debounce = 150 } },
     specs = {
         {
