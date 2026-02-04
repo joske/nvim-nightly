@@ -18,6 +18,7 @@ vim.opt.writebackup = false
 vim.opt.showmode = true
 vim.opt.mouse = "a"
 vim.opt.clipboard:append { "unnamed", "unnamedplus" }
+vim.opt.wildoptions = "pum"
 
 -- Configure diagnostic display
 vim.diagnostic.config {
