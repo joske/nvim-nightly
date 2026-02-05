@@ -30,11 +30,13 @@ return {
         end
     end,
     opts = {
+        animate = { enabled = false },
         bigfile = { enabled = true },
         dashboard = { enabled = true },
         dim = { enabled = true },
         explorer = { enabled = true },
         git = { enabled = true },
+        gh = { enabled = true },
         indent = { enabled = true },
         input = { enabled = true },
         notifier = {
@@ -53,7 +55,7 @@ return {
             },
         },
         toggle = { enabled = false },
-        words = { enabled = true },
+        words = { enabled = false },
         styles = {
             notification = {
                 wo = { wrap = true }, -- Wrap notifications
