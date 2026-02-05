@@ -10,14 +10,13 @@ Modern Neovim config for 0.11+
 - **Mason** for tool installation
 - **none-ls** for formatting (shfmt, yamlfmt) and linting (shellcheck)
 - **Treesitter** for syntax highlighting
-- **Snacks** for terminal, pickers, explorer, notifications, lazygit integration, and dashboard
+- **Snacks** for terminal, pickers, explorer, notifications, lazygit integration, github, and dashboard
 - **lualine** for statusline
 - **bufferline** for buffer tabs
 - **which-key** for keybinding hints
 - **rustaceanvim** for Rust support
 - **mini.pairs** and **mini.move** for editor enhancements
 - **Trouble** for diagnostics
-- **Comment.nvim** for toggling comments
 - **todo-comments** for TODO highlighting
 - **fugitive** for git commands
 - **fidget** for LSP progress
@@ -25,7 +24,6 @@ Modern Neovim config for 0.11+
 ## Features
 
 - Format on save
-- Auto-refresh git status in neo-tree after lazygit operations
 - Inlay hints for supported LSPs
 
 ## Requirements
