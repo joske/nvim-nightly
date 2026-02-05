@@ -184,6 +184,10 @@ map("n", "<leader>g", "", { desc = "Git" })
 map("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "LazyGit" })
 map("n", "<leader>gb", "<cmd>Git blame<CR>", { desc = "Git Blame" })
 map("n", "<leader>gB", function() Snacks.git.blame_line() end, { desc = "Git Blame Line" })
+map("n", "<leader>gi", function() Snacks.picker.gh_issue() end, { desc = "GitHub Issues (open)" })
+map("n", "<leader>gI", function() Snacks.picker.gh_issue({ state = "all" }) end, { desc = "GitHub Issues (all)" })
+map("n", "<leader>gp", function() Snacks.picker.gh_pr() end, { desc = "GitHub Pull Requests (open)" })
+map("n", "<leader>gP", function() Snacks.picker.gh_pr({ state = "all" }) end, { desc = "GitHub Pull Requests (all)" })
 
 -- notifications
 map("n", "<leader>n", function() Snacks.picker.notifications() end, { desc = "Notification History" })
