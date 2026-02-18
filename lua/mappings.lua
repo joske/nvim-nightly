@@ -49,7 +49,7 @@ local function todo_picker()
     local search = require "todo-comments.search"
     search.search(function(results)
         if not results or vim.tbl_isempty(results) then
-            Snacks.notify("No TODOs found", vim.log.levels.INFO)
+            vim.notify("No TODOs found", vim.log.levels.INFO)
             return
         end
         local items = {}
