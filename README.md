@@ -1,11 +1,12 @@
 # Neovim Configuration
 
-Modern Neovim config for 0.11+
+Modern Neovim config for 0.12+
 
 ## Stack
 
 - **lazy.nvim** for package management
 - **blink.cmp** for completions
+- **copilot.lua** for GitHub Copilot integration
 - **LSP** via nvim-lspconfig (lua_ls, bashls, yamlls, tombi, texlab, json-lsp)
 - **Mason** for tool installation
 - **none-ls** for formatting (shfmt, yamlfmt) and linting (shellcheck)
@@ -13,28 +14,37 @@ Modern Neovim config for 0.11+
 - **Snacks** for terminal, pickers, explorer, notifications, lazygit integration, github, and dashboard
 - **lualine** for statusline
 - **bufferline** for buffer tabs
-- **which-key** for keybinding hints
-- **rustaceanvim** for Rust support
-- **mini.pairs** and **mini.move** for editor enhancements
+- **mini.clue** for keybinding hints
+- **mini.pairs**, **mini.move**, **mini.comment** for editor enhancements
+- **rustaceanvim** + **crates.nvim** for Rust support
+- **neotest** for testing
+- **nvim-dap** + **dapui** for debugging
+- **aerial.nvim** for code outline
 - **Trouble** for diagnostics
 - **todo-comments** for TODO highlighting
-- **fugitive** for git commands
+- **fugitive** + **lazygit.nvim** for git
 - **fidget** for LSP progress
+- **resession** for session management
+- **markdown-preview** for Markdown
+- **actions-preview** for code action preview
+- **rainbow-delimiters** for bracket colorization
 
 ## Features
 
 - Format on save
 - Inlay hints for supported LSPs
+- Neovide support
 
 ## Requirements
 
-- Neovim 0.11+
+- Neovim 0.12+
 - Git
 - Nerd Font
 - ripgrep
 - fd
 - fzf
+- node/yarn
+- lazygit
+- rust/rust-analyzer
+- tree-sitter CLI
 - latex
-- yarn
-- lazygit/git
-- rust/rust_analyzer
