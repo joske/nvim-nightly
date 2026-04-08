@@ -10,20 +10,9 @@ return {
         config = function() require("mini.pairs").setup() end,
     },
     {
-        "nvim-mini/mini.clue",
-        version = "*",
-        config = function()
-            require("mini.clue").setup({
-                window = {
-                    config = { anchor = 'SW', row = 'auto', col = 'auto', }
-                },
-                -- Register `<Leader>` as trigger
-                triggers = {
-                    { mode = 'n', keys = '<Leader>' },
-                    { mode = 'x', keys = '<Leader>' },
-                },
-            })
-        end,
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        opts = {},
     },
     {
         "nvim-mini/mini.comment",
