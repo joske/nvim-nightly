@@ -15,7 +15,7 @@ vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 8
 vim.opt.updatetime = 300
 vim.opt.writebackup = false
-vim.opt.showmode = true
+vim.opt.showmode = false
 vim.opt.mouse = "a"
 vim.opt.clipboard:append { "unnamed", "unnamedplus" }
 vim.opt.wildoptions = "pum"
