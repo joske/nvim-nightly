@@ -1,5 +1,10 @@
 return {
     {
+        "MeanderingProgrammer/render-markdown.nvim",
+        ft = { "markdown" },
+        opts = {},
+    },
+    {
         "iamcco/markdown-preview.nvim",
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
         build = "cd app && yarn install",
