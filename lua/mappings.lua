@@ -153,7 +153,7 @@ map({ "n" }, "<leader>e", function() Snacks.explorer() end, { desc = "Toggle Neo
 map({ "n" }, "<leader>o", function() Snacks.explorer.open() end, { desc = "Focus Neotree" })
 
 -- markdown
-map({ "n" }, "gm", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Markdown Preview" })
+map({ "n" }, "<Leader>gm", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Markdown Preview" })
 
 -- rust
 map({ "n" }, "<Leader>r", "", { desc = "Rust" })
@@ -161,8 +161,29 @@ map({ "n" }, "<Leader>ra", "<cmd>RustLsp codeAction<CR>", { desc = "Code Action"
 map({ "n" }, "<Leader>rC", "<cmd>RustLsp openCargo<CR>", { desc = "Open Cargo.toml" })
 map({ "n" }, "<Leader>rd", "<cmd>RustLsp debuggables<CR>", { desc = "Debug" })
 map({ "n" }, "<Leader>rm", "<cmd>RustLsp expandMacro<CR>", { desc = "Expand Macro" })
+map({ "n" }, "<Leader>rD", "<cmd>RustLsp openDocs<CR>", { desc = "Open Docs" })
+map({ "n" }, "<Leader>rp", "<cmd>RustLsp parentModule<CR>", { desc = "Parent Module" })
+map({ "n" }, "<Leader>rb", "<cmd>RustLsp runnables<CR>", { desc = "Runnables" })
+map({ "n" }, "<Leader>re", "<cmd>RustLsp explainError<CR>", { desc = "Explain Error" })
+map({ "n" }, "<Leader>rj", "<cmd>RustLsp joinLines<CR>", { desc = "Join Lines" })
+map({ "n" }, "<Leader>rf", "<cmd>RustLsp workspaceSymbol<CR>", { desc = "Find Symbol" })
 map({ "n" }, "<Leader>rr", rust_codelens_run, { desc = "Run Rust test (CodeLens)" })
 map({ "n" }, "<Leader>rR", rust_codelens_refresh, { desc = "Refresh Rust CodeLens" })
+
+-- crates
+map({ "n" }, "<Leader>rc", "", { desc = "Crates" })
+map({ "n" }, "<Leader>rcr", function() require("crates").reload() end, { desc = "Reload Crates" })
+map({ "n" }, "<Leader>rcf", function() require("crates").show_features_popup() end, { desc = "Show Features" })
+map({ "n" }, "<Leader>rcv", function() require("crates").show_versions_popup() end, { desc = "Show Versions" })
+map({ "n" }, "<Leader>rcd", function() require("crates").show_dependencies_popup() end, { desc = "Show Dependencies" })
+map({ "n" }, "<Leader>rcu", function() require("crates").update() end, { desc = "Update Crate" })
+map({ "n" }, "<Leader>rca", function() require("crates").update_all_crates() end, { desc = "Update All Crates" })
+map({ "n" }, "<Leader>rcU", function() require("crates").upgrade_crate() end, { desc = "Upgrade Crate" })
+map({ "n" }, "<Leader>rcA", function() require("crates").upgrade_all_crates() end, { desc = "Upgrade All Crates" })
+map({ "n" }, "<Leader>rcH", function() require("crates").open_homepage() end, { desc = "Open Homepage" })
+map({ "n" }, "<Leader>rcR", function() require("crates").open_repository() end, { desc = "Open Repository" })
+map({ "n" }, "<Leader>rcD", function() require("crates").open_documentation() end, { desc = "Open Documentation" })
+map({ "n" }, "<Leader>rcC", function() require("crates").open_crates_io() end, { desc = "Open crates.io" })
 
 -- test
 map({ "n" }, "<Leader>t", "", { desc = "Test" })
@@ -192,11 +213,22 @@ map("n", "<leader>gP", function() Snacks.picker.gh_pr({ state = "all" }) end, { 
 -- notifications
 map("n", "<leader>n", function() Snacks.picker.notifications() end, { desc = "Notification History" })
 
+-- trouble
+map({ "n" }, "<leader>x", "", { desc = "Trouble" })
+map({ "n" }, "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics" })
+map({ "n" }, "<leader>xd", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Document Diagnostics" })
+map({ "n" }, "<leader>xl", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List" })
+map({ "n" }, "<leader>xq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix" })
+map({ "n" }, "<leader>xr", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "LSP References" })
+
 -- LSP
 map({ "n" }, "<Leader>l", "", { desc = "LSP" })
 map({ "n", "v", "x" }, "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
 map({ "n", "v", "x" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Code Action" })
 map({ "n" }, "<Leader>lr", vim.lsp.buf.rename, { desc = "Rename" })
+map({ "n" }, "<Leader>lc", "", { desc = "Calls" })
+map({ "n" }, "<Leader>lci", function() vim.lsp.buf.incoming_calls() end, { desc = "Incoming Calls" })
+map({ "n" }, "<Leader>lco", function() vim.lsp.buf.outgoing_calls() end, { desc = "Outgoing Calls" })
 map({ "n" }, "<leader>lS", "<cmd>AerialToggle!<CR>", { desc = "Toggle Aerial" })
 map({ "n" }, "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Definition" })
 map({ "n" }, "gi", function() Snacks.picker.lsp_implementations() end, { desc = "Implementations" })
