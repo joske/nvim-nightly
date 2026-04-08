@@ -115,9 +115,16 @@ map({ "n" }, "<leader>Q", "<Cmd>:wqa<CR>", { desc = "Write and Quit" })
 -- notifier
 map({ "n" }, "<leader>nh", function() Snacks.notifier.show_history() end, { desc = "Show Notification History" })
 
--- neotree
-map({ "n" }, "<leader>e", function() Snacks.explorer() end, { desc = "Toggle Neotree" })
-map({ "n" }, "<leader>o", function() Snacks.explorer.open() end, { desc = "Focus Neotree" })
+-- explorer
+map({ "n" }, "<leader>e", function() Snacks.explorer() end, { desc = "Toggle Explorer" })
+map({ "n" }, "<leader>o", function()
+    local explorers = Snacks.picker.get({ source = "explorer" })
+    if #explorers > 0 then
+        explorers[1]:focus()
+    else
+        Snacks.explorer()
+    end
+end, { desc = "Focus Explorer" })
 
 -- markdown
 map({ "n" }, "<Leader>gm", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Markdown Preview" })
