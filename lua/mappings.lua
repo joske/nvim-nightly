@@ -45,39 +45,6 @@ end
 
 local function git_files() Snacks.picker.files { ignored = false } end
 
-local function todo_picker()
-    local search = require "todo-comments.search"
-    search.search(function(results)
-        if not results or vim.tbl_isempty(results) then
-            vim.notify("No TODOs found", vim.log.levels.INFO)
-            return
-        end
-        local items = {}
-        for _, item in ipairs(results) do
-            items[#items + 1] = {
-                text = item.text or item.line,
-                file = item.filename,
-                lnum = item.lnum,
-                col = item.col,
-                value = item,
-            }
-        end
-        Snacks.picker {
-            title = "TODOs",
-            items = items,
-            format = "file",
-            confirm = function(picker, selection)
-                if not selection then return end
-                picker:close()
-                vim.schedule(function()
-                    vim.cmd(("edit %s"):format(vim.fn.fnameescape(selection.value.filename)))
-                    vim.api.nvim_win_set_cursor(0, { selection.value.lnum, math.max(selection.value.col - 1, 0) })
-                end)
-            end,
-        }
-    end, { disable_not_found_warnings = true })
-end
-
 local function toggle_inlay_hints()
     if not vim.lsp.inlay_hint then
         vim.notify("Inlay hints not supported", vim.log.levels.WARN)
@@ -236,7 +203,7 @@ map({ "n" }, "gr", function() Snacks.picker.lsp_references() end, { desc = "Refe
 
 -- todo
 map({ "n" }, "<leader>T", "", { desc = "TODOs" })
-map({ "n" }, "<leader>Tt", todo_picker, { desc = "TODO Picker" })
+map({ "n" }, "<leader>Tt", function() Snacks.picker.todo_comments() end, { desc = "TODO Picker" })
 map({ "n" }, "<leader>Tx", "<cmd>TodoTrouble<CR>", { desc = "TODO Trouble" })
 map({ "n" }, "<leader>Tq", "<cmd>TodoQuickFix<CR>", { desc = "TODO QuickFix" })
 
