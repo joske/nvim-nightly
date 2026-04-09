@@ -40,4 +40,16 @@ return {
         event = { "BufRead Cargo.toml" },
         opts = {},
     },
+    {
+        "nvim-neotest/neotest",
+        config = function()
+            require("neotest").setup {
+                adapters = {
+                    require "rustaceanvim.neotest" {
+                        args = { "--no-capture" },
+                    },
+                },
+            }
+        end,
+    },
 }

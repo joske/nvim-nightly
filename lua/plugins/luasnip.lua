@@ -9,8 +9,5 @@ return {
     },
     config = function(_, opts)
         require("luasnip").config.setup(opts)
-        require("luasnip.loaders.from_vscode").lazy_load()
-        -- (optional) also load your own lua snippets if you have any
-        -- require("luasnip.loaders.from_lua").lazy_load()
     end,
 }

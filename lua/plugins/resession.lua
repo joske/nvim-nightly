@@ -10,7 +10,7 @@ return {
                 -- Always save a special session named "last"
                 save("last")
                 -- Save directory session
-                save(vim.fn.getcwd(), { dir = "dirsession" })
+                save(vim.fn.getcwd(), { dir = "dirsession", notify = false })
             end,
         })
     end,

@@ -32,7 +32,23 @@ return {
     opts = {
         animate = { enabled = false },
         bigfile = { enabled = true },
-        dashboard = { enabled = true },
+        dashboard = {
+            enabled = true,
+            preset = {
+                header = table.concat({
+                    " ███    ██ ██    ██ ██ ███    ███",
+                    " ████   ██ ██    ██ ██ ████  ████",
+                    " ██ ██  ██ ██    ██ ██ ██ ████ ██",
+                    " ██  ██ ██  ██  ██  ██ ██  ██  ██",
+                    " ██   ████   ████   ██ ██      ██",
+                }, "\n"),
+            },
+            sections = {
+                { section = "header" },
+                { section = "keys",         gap = 1,    padding = 1 },
+                { section = "recent_files", padding = 1 },
+            },
+        },
         dim = { enabled = true },
         explorer = { enabled = true },
         git = { enabled = true },
@@ -41,7 +57,7 @@ return {
         input = { enabled = true },
         notifier = {
             enabled = true,
-            timeout = 1000,
+            timeout = 3000,
         },
         picker = { enabled = true },
         quickfile = { enabled = false },

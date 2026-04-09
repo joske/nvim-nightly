@@ -8,7 +8,7 @@ return {
                 diagnostics = "nvim_lsp",
                 separator_style = "slant",
                 offsets = {
-                    { filetype = "neo-tree", text = "File Explorer", highlight = "Directory", separator = true },
+                    { filetype = "snacks_layout_box", text = "File Explorer", highlight = "Directory", separator = true },
                 },
                 always_show_bufferline = true,
             },

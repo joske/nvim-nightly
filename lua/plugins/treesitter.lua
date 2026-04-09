@@ -3,7 +3,7 @@ return {
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     opts = {
-        ensure_installed = { "lua", "rust", "bash", "toml", "json", "yaml", "markdown" },
+        ensure_installed = { "rust", "bash", "toml", "json", "yaml", "markdown", "latex", "html" },
         highlight = { enable = true },
     },
 }

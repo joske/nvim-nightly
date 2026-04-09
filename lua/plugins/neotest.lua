@@ -6,13 +6,4 @@ return {
         "antoinemadec/FixCursorHold.nvim",
         "nvim-treesitter/nvim-treesitter",
     },
-    config = function()
-        require("neotest").setup {
-            adapters = {
-                require "rustaceanvim.neotest" {
-                    args = { "--no-capture" },
-                },
-            },
-        }
-    end,
 }

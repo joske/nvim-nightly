@@ -5,7 +5,6 @@ return {
             "rcarriga/nvim-dap-ui",
             "nvim-neotest/nvim-nio",
             "theHamsta/nvim-dap-virtual-text",
-            "jay-babu/mason-nvim-dap.nvim",
         },
         config = function()
             local dap = require "dap"
@@ -69,15 +68,6 @@ return {
                         return variable.name .. " = " .. variable.value
                     end
                 end,
-            }
-
-            -- Setup mason-nvim-dap
-            require("mason-nvim-dap").setup {
-                ensure_installed = {
-                    "codelldb",
-                },
-                automatic_installation = true,
-                handlers = {},
             }
 
             -- Automatically open/close dapui when debugging starts/stops

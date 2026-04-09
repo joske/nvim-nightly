@@ -2,6 +2,23 @@
 
 Modern Neovim config for 0.12+
 
+## 🛠️ Installation
+
+#### Make a backup of your current nvim and shared folder
+
+```shell
+mv ~/.config/nvim ~/.config/nvim.bak
+mv ~/.local/share/nvim ~/.local/share/nvim.bak
+mv ~/.local/state/nvim ~/.local/state/nvim.bak
+mv ~/.cache/nvim ~/.cache/nvim.bak
+```
+
+#### Clone the repository
+
+```shell
+git clone https://github.com/joske/nvim-nightly ~/.config/nvim
+```
+
 ## Stack
 
 - **lazy.nvim** for package management
@@ -11,11 +28,10 @@ Modern Neovim config for 0.12+
 - **Mason** for tool installation
 - **none-ls** for formatting (shfmt, yamlfmt) and linting (shellcheck)
 - **Treesitter** for syntax highlighting
-- **Snacks** for terminal, pickers, explorer, notifications, lazygit integration, github, and dashboard
+- **Snacks** for picker, explorer, dashboard, notifications, lazygit, git, GitHub, terminal, dim, and indent
 - **lualine** for statusline
 - **bufferline** for buffer tabs
-- **mini.clue** for keybinding hints
-- **mini.pairs**, **mini.move**, **mini.comment** for editor enhancements
+- **which-key** for keybinding hints
 - **rustaceanvim** + **crates.nvim** for Rust support
 - **neotest** for testing
 - **nvim-dap** + **dapui** for debugging
@@ -25,9 +41,13 @@ Modern Neovim config for 0.12+
 - **fugitive** + **lazygit.nvim** for git
 - **fidget** for LSP progress
 - **resession** for session management
-- **markdown-preview** for Markdown
+- **render-markdown** for in-editor markdown rendering
+- **markdown-preview** for browser-based markdown preview
 - **actions-preview** for code action preview
 - **rainbow-delimiters** for bracket colorization
+
+- **mini.move**, **mini.pairs**, **mini.comment**, **mini.icons** for editor enhancements
+- **LuaSnip** for snippets
 
 ## Features
 
