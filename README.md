@@ -57,14 +57,8 @@ git clone https://github.com/joske/nvim-nightly ~/.config/nvim
 
 ## Requirements
 
-- Neovim 0.12+
-- Git
-- Nerd Font
-- ripgrep
-- fd
-- fzf
-- node/yarn
-- lazygit
-- rust/rust-analyzer
-- tree-sitter CLI
-- latex
+Needs Neovim 0.12+
+
+```bash
+sudo pacman -S --needed git npm ruby ripgrep lazygit fzf fd
+```

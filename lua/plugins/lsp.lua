@@ -12,15 +12,6 @@ return {
         end,
     },
     {
-        "jay-babu/mason-nvim-dap.nvim",
-        dependencies = { "williamboman/mason.nvim" },
-        opts = {
-            ensure_installed = { "codelldb" },
-            automatic_installation = true,
-            handlers = {},
-        },
-    },
-    {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         dependencies = {
             "williamboman/mason.nvim",
@@ -33,28 +24,21 @@ return {
                 -- language servers
                 -- don't put rust-analyzer here, use the system rust-analyzer instead
                 "lua-language-server",
-                "tombi",
                 "yamlls",
-                "texlab",
-                "json-lsp",
-                "marksman",
                 "bashls",
                 "dockerfile-language-server",
 
                 -- formatters
                 "shfmt",
                 "yamlfmt",
-                "latexindent",
 
                 -- linters
                 "shellcheck",
                 -- debug
-                "codelldb",
             },
             integrations = {
                 ["mason-lspconfig"] = true,
                 ["mason-null-ls"] = true,
-                ["mason-nvim-dap"] = true,
             },
         },
     },
